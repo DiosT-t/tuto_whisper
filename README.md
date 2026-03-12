@@ -129,7 +129,7 @@ Vous devriez voir un long texte d'aide s'afficher → c'est bon ✅
 
 On va utiliser un petit script Python prêt à l'emploi qui simplifie la transcription.
 
-1. Téléchargez le fichier **`whisper_code.py`** (il vous a été fourni avec ce tutoriel)
+1. Téléchargez le fichier **[whisper_code.py](whisper_code.py)** (il vous a été fourni avec ce tutoriel)
 
 2. **Placez-le dans le même dossier que vos fichiers audio** (par exemple sur le Bureau)
 
@@ -141,7 +141,7 @@ Vous y êtes ! Voici comment transcrire un fichier audio.
 
 ### Configurer le script
 
-1. Faites un **clic droit** sur le fichier **`whisper_code.py`** → **« Ouvrir avec »** → **« Bloc-notes »**
+1. Faites un **clic droit** sur le fichier **[whisper_code.py](whisper_code.py)** → **« Ouvrir avec »** → **« Bloc-notes »**
 
 2. Tout en haut du fichier, vous verrez une section **⚙️ PARAMÈTRES À MODIFIER**. Modifiez les 4 lignes suivantes :
 
@@ -190,52 +190,60 @@ Vous y êtes ! Voici comment transcrire un fichier audio.
 
 > 💡 **Pour transcrire un autre fichier** : rouvrez `whisper_code.py` avec le Bloc-notes, changez le nom du fichier audio dans les paramètres, enregistrez, et double-cliquez à nouveau dessus.
 
----
+> 💡 **Astuce** : une fois que tout est installé, vous n'avez plus besoin de refaire les étapes 1 à 3. Pour transcrire un nouveau fichier, reprenez directement à l'**étape 5**.
 
-## 📌 Récapitulatif des modèles
-
-| Modèle | Qualité | Vitesse | RAM nécessaire |
-|--------|---------|---------|----------------|
-| `tiny` | ⭐ | Très rapide | ~1 Go |
-| `base` | ⭐⭐ | Rapide | ~1 Go |
-| `small` | ⭐⭐⭐ | Moyen | ~2 Go |
-| `medium` | ⭐⭐⭐⭐ | Lent | ~5 Go |
-| `large` | ⭐⭐⭐⭐⭐ | Très lent | ~10 Go |
-
-> **Conseil** : commencez avec `medium`. Si c'est trop long ou que votre PC rame, essayez `small` ou `base`.
->
-> Pour changer de modèle, remplacez `--model medium` par `--model small` (ou autre) dans la commande.
-
----
 
 ## ❓ En cas de problème
 
-### « 'python' n'est pas reconnu comme commande interne »
+### Problèmes d'installation
+
+#### « 'python' n'est pas reconnu comme commande interne »
 → Vous avez oublié de cocher **« Add Python to PATH »** à l'étape 1. Désinstallez Python (dans Paramètres > Applications) et recommencez l'étape 1.
 
-### « 'pip' n'est pas reconnu comme commande interne »
+#### « 'pip' n'est pas reconnu comme commande interne »
 → Même problème que ci-dessus. Désinstallez et réinstallez Python en cochant bien la case PATH.
 
-### « 'ffmpeg' n'est pas reconnu comme commande interne »
+#### « 'ffmpeg' n'est pas reconnu comme commande interne »
 → FFmpeg n'est pas bien installé. Ouvrez un **PowerShell en administrateur** et relancez `choco install ffmpeg -y`. N'oubliez pas de **fermer et rouvrir** la fenêtre de commande après l'installation.
 
-### « No module named 'whisper' »
-→ Whisper ne s'est pas installé correctement. Relancez la commande de l'étape 3 :
+#### « No module named 'whisper' »
+→ Whisper ne s'est pas installé correctement. Ouvrez une fenêtre de commande (**`Windows` + `R`** → `cmd` → **Entrée**) et relancez :
 ```
 pip install -U openai-whisper
 ```
 
-### La transcription est de mauvaise qualité
-→ Essayez un modèle plus gros : remplacez `--model medium` par `--model large` dans la commande.
+### Problèmes au lancement du script
+
+#### Le script ne se lance pas quand je double-clique dessus
+→ Python n'est peut-être pas associé aux fichiers `.py`. Faites un **clic droit** sur `whisper_code.py` → **« Ouvrir avec »** → **« Choisir une autre application »** → sélectionnez **Python** et cochez **« Toujours utiliser cette application »**.
+
+#### « ❌ ERREUR : le fichier '...' n'existe pas »
+→ Le nom du fichier audio ou le chemin du dossier est incorrect dans les paramètres du script. Vérifiez :
+- Que le **nom du fichier** est écrit exactement comme il apparaît dans votre dossier (avec l'extension `.mp3`, `.wav`, etc.)
+- Que le **chemin du dossier** est correct et utilise des `/` (pas des `\`)
+- Exemple correct : `"C:/Users/Jean/Desktop/Mes_Audios"`
+
+#### La fenêtre noire s'ouvre et se ferme immédiatement
+→ Il y a une erreur dans le script. Pour voir le message d'erreur :
+1. Ouvrez une fenêtre de commande : **`Windows` + `R`** → tapez `cmd` → **Entrée**
+2. Tapez `cd` suivi du chemin du dossier où se trouve le script, puis **Entrée**
+3. Tapez `python whisper_code.py` puis **Entrée**
+4. Le message d'erreur restera visible à l'écran
+
+### Problèmes de transcription
+
+#### La transcription est de mauvaise qualité
+→ Changez le modèle dans les paramètres du script : remplacez `"medium"` par `"large"` sur la ligne `modele_whisper = "medium"`.
 → Assurez-vous que l'audio est de bonne qualité (pas trop de bruit de fond).
 
-### Mon PC est très lent pendant la transcription
-→ C'est normal, Whisper utilise beaucoup de ressources. Essayez un modèle plus petit (`small` ou `base`).
+#### Mon PC est très lent pendant la transcription
+→ C'est normal, Whisper utilise beaucoup de ressources. Changez le modèle dans le script pour un plus petit : remplacez `"medium"` par `"small"` ou `"base"` sur la ligne `modele_whisper`.
 → Fermez les autres programmes pendant la transcription.
 
-### J'ai une erreur que je ne comprends pas
+### Autre
+
+#### J'ai une erreur que je ne comprends pas
 → Copiez le message d'erreur complet et recherchez-le sur Google. Vous trouverez souvent la solution sur des forums.
 
 ---
 
-> 💡 **Astuce** : une fois que tout est installé, vous n'avez plus besoin de refaire les étapes 1 à 3. Pour transcrire un nouveau fichier, reprenez directement à l'**étape 5**.
